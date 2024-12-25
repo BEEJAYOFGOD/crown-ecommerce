@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./menu-item.styles.scss";
 
 const MenuItem = ({ title, imageUrl, size, linkUrl }) => {

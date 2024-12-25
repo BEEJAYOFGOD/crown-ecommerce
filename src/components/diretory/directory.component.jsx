@@ -1,13 +1,17 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import MenuItem from "../meni-item/menu-item.component";
 import "./directory.styles.scss";
 
 const Directory = () => {
+  // cghcjyhjfg
+
   const [sections, setSections] = useState([
     {
       title: "hats",
       imageUrl: "https://i.ibb.co/cvpntL1/hats.png",
       id: 1,
+      linkUrl: "hats",
     },
     {
       title: "jackets",
@@ -36,13 +40,8 @@ const Directory = () => {
   return (
     <>
       <div className="directory-menu">
-        {sections.map(({ title, imageUrl, id, size }) => (
-          <MenuItem
-            key={id}
-            title={title}
-            imageUrl={imageUrl}
-            size={size || ""}
-          />
+        {sections.map(({ id, ...otherSectionProps }) => (
+          <MenuItem key={id} {...otherSectionProps} />
         ))}
       </div>
     </>

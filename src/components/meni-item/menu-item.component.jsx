@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./menu-item.styles.scss";
 
 const MenuItem = ({ title, imageUrl, size, linkUrl }) => {
-  const navigate = useNavigate();
   return (
     <>
-      <div className={`menu-item ${size}`} onClick={() => navigate(linkUrl)}>
+      <Link to={linkUrl} className={`menu-item ${size}`}>
         <div
           className="background-image"
           style={{
@@ -18,7 +17,7 @@ const MenuItem = ({ title, imageUrl, size, linkUrl }) => {
           <h1 className="title">{title.toUpperCase()}</h1>
           <span className="subtitle">SHOP NOW</span>
         </div>
-      </div>
+      </Link>
     </>
   );
 };

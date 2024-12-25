@@ -8,13 +8,13 @@ import {
   RouterProvider,
   useLocation,
   Link,
-  useNavigate,
-  useLoaderData,
   useParams,
 } from "react-router-dom";
 
 import RootLayout from "./layouts/RootLayout";
 import TopicLayout from "./layouts/TopicLayout";
+import ShopLayout from "./layouts/ShopLayout";
+import ShopPage from "./pages/shop/shop.component";
 
 const TopicsList = () => {
   // console.log(props);
@@ -63,16 +63,18 @@ const router = createBrowserRouter(
         <Route index element={<TopicsList />} />
         <Route path="/topics/:topicId" element={<TopicDetail />} />
       </Route>
-      <Route path="hats" element={<TopicLayout />}>
+      {/* <Route path="hats" element={<TopicLayout />}>
         <Route index element={<TopicsList />} />
         <Route path="/hats/:hatId" element={<TopicDetail />} />
+      </Route> */}
+      <Route path="shop" element={<ShopLayout />}>
+        <Route index element={<ShopPage />} />
       </Route>
     </Route>
   )
 );
 
 function App() {
-  // const [count, setCount] = useState(0);
 
   return (
     <>

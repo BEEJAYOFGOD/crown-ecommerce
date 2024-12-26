@@ -15,6 +15,7 @@ import RootLayout from "./layouts/RootLayout";
 import TopicLayout from "./layouts/TopicLayout";
 import ShopLayout from "./layouts/ShopLayout";
 import ShopPage from "./pages/shop/shop.component";
+import Header from "./components/header/header.component";
 
 const TopicsList = () => {
   // console.log(props);
@@ -75,7 +76,6 @@ const router = createBrowserRouter(
 );
 
 function App() {
-
   return (
     <>
       <div className="App">

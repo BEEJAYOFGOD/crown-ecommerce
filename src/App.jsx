@@ -15,7 +15,7 @@ import RootLayout from "./layouts/RootLayout";
 import TopicLayout from "./layouts/TopicLayout";
 import ShopLayout from "./layouts/ShopLayout";
 import ShopPage from "./pages/shop/shop.component";
-import Header from "./components/header/header.component";
+import SignInUp from "./pages/sign-in-up/sign-in-up.component";
 
 const TopicsList = () => {
   // console.log(props);
@@ -60,17 +60,17 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<Homepage />} />
+
       <Route path="topics" element={<TopicLayout />}>
         <Route index element={<TopicsList />} />
         <Route path="/topics/:topicId" element={<TopicDetail />} />
       </Route>
-      {/* <Route path="hats" element={<TopicLayout />}>
-        <Route index element={<TopicsList />} />
-        <Route path="/hats/:hatId" element={<TopicDetail />} />
-      </Route> */}
+
       <Route path="shop" element={<ShopLayout />}>
         <Route index element={<ShopPage />} />
       </Route>
+
+      <Route path="/signin" Component={SignInUp} />
     </Route>
   )
 );

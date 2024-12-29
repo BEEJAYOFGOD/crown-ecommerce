@@ -2,6 +2,8 @@
 import { useState } from "react";
 import FormInput from "../form-input/form-input.component";
 import "./sign-in.styles.scss";
+import CustomBtn from "../custom-btn/custom-btn.component";
+import { signInWithGoogle } from "../../firebase/firebase.utils";
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,8 +23,6 @@ const SignIn = () => {
 
         <form onSubmit={handleSubmit}>
           <FormInput
-            name="email"
-            type="email"
             value={email}
             handleChange={(event) => {
               setEmail(event.target.value);
@@ -30,10 +30,8 @@ const SignIn = () => {
             required
             label="email"
           />
-          <label htmlFor="email">Email</label>
+
           <FormInput
-            name="password"
-            type="password"
             value={password}
             handleChange={(event) => {
               setPassword(event.target.value);
@@ -41,9 +39,13 @@ const SignIn = () => {
             label="password"
             required
           />
-          <label htmlFor="password">password</label>
-
-          <input type="submit" value="Submit Form" />
+          <br />
+          <div className="buttons">
+            <CustomBtn type="submit">Sign In</CustomBtn>
+            <CustomBtn onClick={signInWithGoogle} isGgoogleSignIn={true}>
+              Sign In With Google
+            </CustomBtn>
+          </div>
         </form>
       </div>
     </>

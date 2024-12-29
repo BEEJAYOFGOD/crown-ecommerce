@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import "./form-input.styles.scss";
-const FormInput = ({ handleChange, label, value, ...otherProps }) => {
-  console.log(value.length);
+const FormInput = ({ handleChange, label, ...otherProps }) => {
   return (
     <>
       <div className="group">
@@ -15,7 +14,11 @@ const FormInput = ({ handleChange, label, value, ...otherProps }) => {
           {...otherProps}
         />
         {label ? (
-          <label className={`${value.length ? `shrink` : ""} form-input-label`}>
+          <label
+            className={`${
+              otherProps.value.length ? `shrink` : ""
+            } form-input-label`}
+          >
             {label}
           </label>
         ) : null}

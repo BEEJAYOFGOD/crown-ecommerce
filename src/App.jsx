@@ -8,13 +8,14 @@ import {
 import RootLayout from "./layouts/RootLayout";
 import ShopLayout from "./layouts/ShopLayout";
 
-import { auth } from "./firebase/firebase.utils";
+import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
 import { useEffect, useState } from "react";
 import { userContext } from "./contexts/userContext";
 
 import Homepage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shop/shop.component";
 import SignInUp from "./pages/sign-in-up/sign-in-up.component";
+import { onSnapshot } from "firebase/firestore";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,8 +35,22 @@ function App() {
   const [currentUser, setCurrentUser] = useState("");
 
   useEffect(() => {
-    const unsubscribeFromAuth = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
+    const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        const unsubscribeFromSnapshot = onSnapshot(userRef, (userSnapshot) => {
+          setCurrentUser({
+            id: userSnapshot.id,
+            ...userSnapshot.data(),
+          });
+        });
+
+        // Ensure snapshot listener is cleaned up
+        return () => unsubscribeFromSnapshot();
+      } else {
+        setCurrentUser(null);
+      }
     });
 
     return () => unsubscribeFromAuth();
@@ -45,7 +60,7 @@ function App() {
   return (
     <>
       <div className="App">
-        <userContext.Provider value={{ currentUser }}>
+        <userContext.Provider value={{ currentUser, setCurrentUser }}>
           <RouterProvider router={router} />
         </userContext.Provider>
       </div>

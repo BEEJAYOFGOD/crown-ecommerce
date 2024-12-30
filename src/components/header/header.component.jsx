@@ -9,7 +9,7 @@ import { useContext } from "react"; // this is used to consume the context
 
 const Header = () => {
   const { currentUser } = useContext(userContext);
-  console.log(currentUser);
+
   return (
     <div className="header">
       <Link className="logo-container" to="/">
@@ -23,11 +23,18 @@ const Header = () => {
           CONTACT
         </Link>
         {currentUser ? (
-          <div className="option" onClick={() => auth.signOut()}>
+          <div
+            className="option"
+            onClick={() => {
+              auth.signOut();
+            }}
+          >
             SIGN OUT
           </div>
         ) : (
-          <Link to={"/signin"}>SIGN IN</Link>
+          <Link to={"/signin"} className="option">
+            SIGN IN
+          </Link>
         )}
       </div>
     </div>

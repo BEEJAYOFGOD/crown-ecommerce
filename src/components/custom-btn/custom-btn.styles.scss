@@ -1,10 +1,10 @@
 .custom-button {
   min-width: 165px;
   width: auto;
-  height: 50px;
+  // height: 50px;
   letter-spacing: 0.5px;
   line-height: 50px;
-  padding: 0 35px 0 35px;
+  padding: 5px 35px;
   font-size: 15px;
   background-color: black;
   color: white;
@@ -12,6 +12,10 @@
   font-weight: bolder;
   border: none;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
 
   &:hover {
     background-color: white;
@@ -19,7 +23,7 @@
     border: 1px solid black;
   }
 
-  &.google-sign-in{
+  &.google-sign-in {
     background-color: #4285f4;
     color: white;
 

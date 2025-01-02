@@ -46,6 +46,8 @@ function App() {
           });
         });
 
+        console.log(currentUser);
+
         // Ensure snapshot listener is cleaned up
         return () => unsubscribeFromSnapshot();
       } else {

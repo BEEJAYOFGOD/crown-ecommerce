@@ -1,0 +1,31 @@
+.sign-up {
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+
+  .title {
+    margin: 10px 0;
+  }
+}
+
+#loading-spinner {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  border: 5px solid white;
+  // border-bottom: 6px solid black;
+  border-style: dashed;
+  animation: spin 1.5s linear infinite both;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

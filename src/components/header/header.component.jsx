@@ -6,8 +6,13 @@ import { userContext } from "../../contexts/userContext";
 
 import "./header.styles.scss";
 import { useContext } from "react"; // this is used to consume the context
+import { signOut } from "firebase/auth";
 
-const Header = () => {
+import { connect } from "react-redux";
+import CartIcon from "../cart-icon/cart-icon.component";
+import CartDropdown from "../cart-dropdown/cart-dropdown.component";
+
+const Header = ({ hidden }) => {
   const { currentUser } = useContext(userContext);
 
   return (
@@ -26,7 +31,13 @@ const Header = () => {
           <div
             className="option"
             onClick={() => {
-              auth.signOut();
+              signOut(auth)
+                .then(() => {
+                  console.log("User signed out successfully");
+                })
+                .catch((error) => {
+                  console.error("Error signing out:", error);
+                });
             }}
           >
             SIGN OUT
@@ -36,9 +47,15 @@ const Header = () => {
             SIGN IN
           </Link>
         )}
+        <CartIcon />
       </div>
+      {hidden ? null : <CartDropdown />}
     </div>
   );
 };
 
-export default Header;
+const mapStateToProps = ({ cart: { hidden } }) => ({
+  hidden,
+});
+
+export default connect(mapStateToProps)(Header);

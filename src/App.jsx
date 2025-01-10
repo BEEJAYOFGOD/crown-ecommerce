@@ -9,6 +9,7 @@ import RootLayout from "./layouts/RootLayout";
 import ShopLayout from "./layouts/ShopLayout";
 
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
+import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { userContext } from "./contexts/userContext";
 
@@ -35,7 +36,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState("");
 
   useEffect(() => {
-    const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+    const unsubscribeFromAuth = onAuthStateChanged(auth, async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 

@@ -1,15 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import logger from "redux-logger";
-
-import rootReducer from "./root-reducer";
-
-const middlewares = [logger];
+import cartReducer from "./cart/cart.reducer";
 
 const store = configureStore({
-  reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(middlewares),
+  reducer: {
+    cart: cartReducer,
+  },
 });
 
 export default store;
-// Compare this snippet from src/redux/user/user.actions.jsx:

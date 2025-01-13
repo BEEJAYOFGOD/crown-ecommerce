@@ -1,16 +1,24 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/jsx-no-duplicate-props */
 import { useState } from "react";
 import FormInput from "../form-input/form-input.component";
 import "./sign-in.styles.scss";
 import CustomBtn from "../custom-btn/custom-btn.component";
-import { signInWithGoogle } from "../../firebase/firebase.utils";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
+
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+    } catch (error) {
+      alert(error.message);
+    }
     setEmail("");
     setPassword("");
   };

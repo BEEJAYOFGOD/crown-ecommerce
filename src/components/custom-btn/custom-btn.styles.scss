@@ -23,6 +23,11 @@
     background-color: white;
     color: black;
     border: 1px solid black;
+
+    #spinner {
+      border: 5px solid black;
+      border-style: dotted;
+    }
   }
 
   &.google-sign-in {

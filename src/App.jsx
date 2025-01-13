@@ -17,6 +17,7 @@ import Homepage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shop/shop.component";
 import SignInUp from "./pages/sign-in-up/sign-in-up.component";
 import { onSnapshot } from "firebase/firestore";
+import CheckOut from "./pages/checkout/checkout.component";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
       </Route>
 
       <Route path="/signin" element={<SignInUp />} />
+      <Route path="/checkout" element={<CheckOut />} />
     </Route>
   )
 );

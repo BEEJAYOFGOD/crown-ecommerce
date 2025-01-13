@@ -23,5 +23,3 @@ const cartItemRef = doc(
   "cartItems",
   "specificItemId"
 );
-
-

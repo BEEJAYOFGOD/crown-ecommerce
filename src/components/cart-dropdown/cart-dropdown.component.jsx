@@ -1,26 +1,53 @@
-/* eslint-disable react/prop-types */
 import CustomBtn from "../custom-btn/custom-btn.component";
 import "./cart-dropdown.styles.scss";
 import CartItem from "../cart-item/cart-item.component";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCartItems } from "../../redux/cart/cart.selectors";
+import { useNavigate } from "react-router-dom";
 
-const CartDropdown = ({ cartItems }) => {
+import PropTypes from "prop-types";
+import { toggleCartHidden } from "../../redux/cart/cart.action.types";
+
+const CartDropdown = () => {
+  const cartItems = useSelector(selectCartItems);
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  const goToCheckout = () => {
+    navigate("/checkout");
+  };
+
   return (
     <div className="cart-dropdown">
       <div className="cart-items">
-        {cartItems.map((cartItem) => (
-          <CartItem key={cartItem.id} item={cartItem} />
-        ))}
+        {cartItems.length ? (
+          cartItems.map((cartItem) => (
+            <CartItem key={cartItem.id} item={cartItem} />
+          ))
+        ) : (
+          <span className="empty-message">Your cart is empty</span>
+        )}
       </div>
-      <CustomBtn>GO TO CHECKOUT</CustomBtn>
+      <CustomBtn
+        onClick={() => {
+          goToCheckout();
+          dispatch(toggleCartHidden());
+        }}
+      >
+        GO TO CHECKOUT
+      </CustomBtn>
     </div>
   );
 };
 
-// export default CartDropdown;
+CartDropdown.propTypes = {
+  cartItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      // Add other properties of cartItem here
+    })
+  ),
+};
 
-const mapStateToProps = ({ cart: { cartItems } }) => ({
-  cartItems,
-});
-
-export default connect(mapStateToProps)(CartDropdown);
+export default CartDropdown;

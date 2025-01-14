@@ -99,7 +99,7 @@ const SignUp = () => {
         />
 
         <CustomBtn type="submit">
-          {!formData.pending ? <Spinner /> : null}
+          {formData.pending ? <Spinner /> : null}
           <span>Sign Up</span>
         </CustomBtn>
       </form>

@@ -17,12 +17,10 @@
   justify-content: center;
   gap: 1em;
   align-items: center;
-  border: 1px solid red;
 
   &:hover {
     background-color: white;
     color: black;
-    border: 1px solid black;
 
     #spinner {
       border: 5px solid black;
@@ -43,7 +41,6 @@
   &.inverted {
     background-color: white;
     color: black;
-    border: 1px solid black;
 
     &:hover {
       background-color: black;

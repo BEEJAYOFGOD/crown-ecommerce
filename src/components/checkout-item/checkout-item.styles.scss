@@ -1,6 +1,6 @@
 .checkout-item {
   width: 100%;
-  border: 1px solid red;
+
   display: flex;
   min-height: 100px;
   border-bottom: 1px solid darkgrey;
@@ -21,14 +21,12 @@
   .quantity,
   .price {
     width: 23%;
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5em;
   }
 
   .quantity {
-    display: flex;
-    gap: 0.5em;
-    border: 1px solid red;
-  
-
     .arrow {
       cursor: pointer;
     }

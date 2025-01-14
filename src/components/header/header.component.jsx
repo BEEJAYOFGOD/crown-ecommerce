@@ -8,12 +8,13 @@ import "./header.styles.scss";
 import { useContext } from "react"; // this is used to consume the context
 import { signOut } from "firebase/auth";
 
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 
-const Header = ({ hidden }) => {
+const Header = () => {
   const { currentUser } = useContext(userContext);
+  const hidden = useSelector((state) => state.cart.hidden);
 
   return (
     <div className="header">
@@ -54,8 +55,4 @@ const Header = ({ hidden }) => {
   );
 };
 
-const mapStateToProps = ({ cart: { hidden } }) => ({
-  hidden,
-});
-
-export default connect(mapStateToProps)(Header);
+export default Header;

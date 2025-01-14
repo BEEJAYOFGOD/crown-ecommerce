@@ -25,6 +25,9 @@
 
   .quantity {
     display: flex;
+    gap: 0.5em;
+    border: 1px solid red;
+  
 
     .arrow {
       cursor: pointer;

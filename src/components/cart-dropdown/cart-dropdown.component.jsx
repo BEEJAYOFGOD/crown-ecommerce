@@ -7,8 +7,12 @@ import { useNavigate } from "react-router-dom";
 
 import PropTypes from "prop-types";
 import { toggleCartHidden } from "../../redux/cart/cart.action.types";
+import { useContext } from "react";
+import { userContext } from "../../contexts/userContext";
+
 
 const CartDropdown = () => {
+  const { currentUser } = useContext(userContext);
   const cartItems = useSelector(selectCartItems);
   const navigate = useNavigate();
 
@@ -21,7 +25,7 @@ const CartDropdown = () => {
   return (
     <div className="cart-dropdown">
       <div className="cart-items">
-        {cartItems.length ? (
+        {cartItems.length && currentUser ? (
           cartItems.map((cartItem) => (
             <CartItem key={cartItem.id} item={cartItem} />
           ))

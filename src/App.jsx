@@ -4,6 +4,7 @@ import {
   Route,
   createRoutesFromElements,
   RouterProvider,
+  Navigate,
 } from "react-router-dom";
 import RootLayout from "./layouts/RootLayout";
 import ShopLayout from "./layouts/ShopLayout";
@@ -19,20 +20,26 @@ import SignInUp from "./pages/sign-in-up/sign-in-up.component";
 import { onSnapshot } from "firebase/firestore";
 import CheckOut from "./pages/checkout/checkout.component";
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<RootLayout />}>
-      <Route index element={<Homepage />} />
+const router = (currentUser) =>
+  createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<RootLayout />}>
+        <Route index element={<Homepage />} />
+        <Route path="shop" element={<ShopLayout />}>
+          <Route index element={<ShopPage />} />
+        </Route>
 
-      <Route path="shop" element={<ShopLayout />}>
-        <Route index element={<ShopPage />} />
+        <Route
+          path="/signin"
+          element={!currentUser ? <SignInUp /> : <Navigate to={"/"} />}
+        />
+        <Route
+          path="/checkout"
+          element={currentUser ? <CheckOut /> : <Navigate to={"/signin"} />}
+        />
       </Route>
-
-      <Route path="/signin" element={<SignInUp />} />
-      <Route path="/checkout" element={<CheckOut />} />
-    </Route>
-  )
-);
+    )
+  );
 
 function App() {
   const [currentUser, setCurrentUser] = useState("");
@@ -43,6 +50,8 @@ function App() {
         const userRef = await createUserProfileDocument(userAuth);
 
         const unsubscribeFromSnapshot = onSnapshot(userRef, (userSnapshot) => {
+          console.log(userSnapshot);
+
           setCurrentUser({
             id: userSnapshot.id,
             ...userSnapshot.data(),
@@ -66,7 +75,7 @@ function App() {
     <>
       <div className="App">
         <userContext.Provider value={{ currentUser, setCurrentUser }}>
-          <RouterProvider router={router} />
+          <RouterProvider router={router(currentUser)} />
         </userContext.Provider>
       </div>
     </>

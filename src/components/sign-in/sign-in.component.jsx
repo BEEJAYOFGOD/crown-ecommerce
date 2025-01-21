@@ -6,21 +6,38 @@ import "./sign-in.styles.scss";
 import CustomBtn from "../custom-btn/custom-btn.component";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
+import Spinner from "../loading-spinner/loading-spinner.component";
+import { replace, useNavigate } from "react-router-dom";
 
 const SignIn = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    isPending: false,
+  });
+
+  const { email, password } = formData;
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    setFormData({ ...formData, isPending: true });
+
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      setFormData({ email: "", password: "", isPending: false });
+      navigate("/", { replace });
+
+      alert("sign in successful");
     } catch (error) {
       alert(error.message);
     }
-    setEmail("");
-    setPassword("");
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   return (
@@ -31,25 +48,32 @@ const SignIn = () => {
 
         <form onSubmit={handleSubmit}>
           <FormInput
+            name={"email"}
             value={email}
-            handleChange={(event) => {
-              setEmail(event.target.value);
-            }}
+            handleChange={handleChange}
             required
             label="email"
           />
 
           <FormInput
+            type={"password"}
             value={password}
-            handleChange={(event) => {
-              setPassword(event.target.value);
-            }}
+            handleChange={handleChange}
             label="password"
             required
           />
+          {/* <span
+            onClick={() => {
+              type == "password" ? setType("text") : setType("password");
+            }}
+          >
+            ad3
+          </span> */}
 
           <div className="buttons">
-            <CustomBtn type="submit">Sign In</CustomBtn>
+            <CustomBtn type="submit">
+              {formData.isPending ? <Spinner /> : null} Sign In
+            </CustomBtn>
             <CustomBtn onClick={signInWithGoogle} isGgoogleSignIn={true}>
               Sign In With Google
             </CustomBtn>

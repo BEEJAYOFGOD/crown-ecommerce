@@ -33,14 +33,16 @@ const SignUp = () => {
 
     try {
       setFormData({ ...formData, pending: true });
-      const userCredential = await createUserWithEmailAndPassword(
+      const credentialInfo = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
 
+      console.log(credentialInfo);
+
       // If you have a function to save additional user data, call it here
-      await createUserProfileDocument(userCredential.user, { displayName });
+      await createUserProfileDocument(credentialInfo.user, { displayName });
 
       // Clear inputs after successful sign-up
       setFormData({
@@ -78,7 +80,7 @@ const SignUp = () => {
           name="email"
           value={email}
           onChange={handleChange}
-          label="Email"
+          label="email"
           required
         />
         <FormInput
@@ -86,7 +88,7 @@ const SignUp = () => {
           name="password"
           value={password}
           onChange={handleChange}
-          label="Password"
+          label="password"
           required
         />
         <FormInput
@@ -94,7 +96,7 @@ const SignUp = () => {
           name="confirmPassword"
           value={confirmPassword}
           onChange={handleChange}
-          label="Confirm Password"
+          label="confirmPassword"
           required
         />
 

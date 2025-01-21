@@ -9,7 +9,9 @@
 
   .buttons {
     display: flex;
-    // gap: 2em;
-    justify-content: space-between;
+    gap: 2em;
+    border: 1px solid black;
+    width: fit-content;
+    // justify-content: space-between;
   }
 }

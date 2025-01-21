@@ -6,7 +6,7 @@ const FormInput = ({ handleChange, label, ...otherProps }) => {
     <>
       <div className="group">
         <input
-          type="text"
+          // type={type}
           name={label}
           id={label}
           className="form-input"
@@ -22,6 +22,7 @@ const FormInput = ({ handleChange, label, ...otherProps }) => {
             {label}
           </label>
         ) : null}
+        {/* {type == "password" ? <img src={Hidden} alt="ade" /> : "ad33"} */}
       </div>
     </>
   );

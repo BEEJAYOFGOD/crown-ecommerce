@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import "./custom-btn.styles.scss";
+import Hidden from "../../assets/hidden.png";
 
 const CustomBtn = ({ children, isGgoogleSignIn, inverted, ...otherProps }) => {
   return (
@@ -10,6 +11,7 @@ const CustomBtn = ({ children, isGgoogleSignIn, inverted, ...otherProps }) => {
       {...otherProps}
     >
       {children}
+     
     </button>
   );
 };

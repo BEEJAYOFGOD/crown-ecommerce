@@ -2,12 +2,21 @@
 import CustomBtn from "../custom-btn/custom-btn.component";
 import "./collection-item.component";
 import "./collection-item.styles.scss";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addItem } from "../../redux/cart/cart.action.types";
+import { useContext } from "react";
+import { userContext } from "../../contexts/userContext";
 
 // eslint-disable-next-line no-unused-vars
-const CollectionItem = ({ item, addItem }) => {
+const CollectionItem = ({ item }) => {
   const { name, price, imageUrl } = item;
+  const { currentUser } = useContext(userContext);
+
+  const dispatch = useDispatch();
+
+  const handleAddItem = () => {
+    dispatch(addItem(item));
+  };
 
   return (
     <>
@@ -23,7 +32,10 @@ const CollectionItem = ({ item, addItem }) => {
           <span className="name">{name}</span>
           <span className="price">{price}</span>
         </div>
-        <CustomBtn onClick={() => addItem(item)} inverted>
+        <CustomBtn
+          onClick={() => (currentUser ? handleAddItem(item) : null)}
+          inverted
+        >
           Add to cart
         </CustomBtn>
       </div>
@@ -31,8 +43,4 @@ const CollectionItem = ({ item, addItem }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  addItem: (item) => dispatch(addItem(item)),
-});
-
-export default connect(null, mapDispatchToProps)(CollectionItem);
+export default CollectionItem;

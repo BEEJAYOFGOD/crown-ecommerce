@@ -32,6 +32,7 @@ const SignIn = () => {
       alert("sign in successful");
     } catch (error) {
       alert(error.message);
+      setFormData({ ...formData, isPending: false });
     }
   };
 

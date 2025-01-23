@@ -6,16 +6,23 @@ import { useDispatch } from "react-redux";
 import { addItem } from "../../redux/cart/cart.action.types";
 import { useContext } from "react";
 import { userContext } from "../../contexts/userContext";
+import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line no-unused-vars
 const CollectionItem = ({ item }) => {
   const { name, price, imageUrl } = item;
   const { currentUser } = useContext(userContext);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
   const handleAddItem = () => {
     dispatch(addItem(item));
+  };
+
+  const userNotLoggedIn = () => {
+    alert("Please, log in");
+    navigate("/signin");
   };
 
   return (
@@ -33,7 +40,9 @@ const CollectionItem = ({ item }) => {
           <span className="price">{price}</span>
         </div>
         <CustomBtn
-          onClick={() => (currentUser ? handleAddItem(item) : null)}
+          onClick={() =>
+            currentUser ? handleAddItem(item) : userNotLoggedIn()
+          }
           inverted
         >
           Add to cart

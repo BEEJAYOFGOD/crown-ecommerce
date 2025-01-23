@@ -4,7 +4,6 @@ import {
   Route,
   createRoutesFromElements,
   RouterProvider,
-  Navigate,
 } from "react-router-dom";
 import RootLayout from "./layouts/RootLayout";
 import ShopLayout from "./layouts/ShopLayout";
@@ -19,27 +18,22 @@ import ShopPage from "./pages/shop/shop.component";
 import SignInUp from "./pages/sign-in-up/sign-in-up.component";
 import { onSnapshot } from "firebase/firestore";
 import CheckOut from "./pages/checkout/checkout.component";
+import CategoryComponent from "./pages/collection/collection.component";
 
-const router = (currentUser) =>
-  createBrowserRouter(
-    createRoutesFromElements(
-      <Route path="/" element={<RootLayout />}>
-        <Route index element={<Homepage />} />
-        <Route path="shop" element={<ShopLayout />}>
-          <Route index element={<ShopPage />} />
-        </Route>
-
-        <Route
-          path="/signin"
-          element={!currentUser ? <SignInUp /> : <Navigate to={"/"} />}
-        />
-        <Route
-          path="/checkout"
-          element={currentUser ? <CheckOut /> : <Navigate to={"/signin"} />}
-        />
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<RootLayout />}>
+      <Route index element={<Homepage />} />
+      <Route path="shop" element={<ShopLayout />}>
+        <Route index element={<ShopPage />} />
+        <Route path=":category" element={<CategoryComponent />} />
       </Route>
-    )
-  );
+
+      <Route path="/signin" element={<SignInUp />} />
+      <Route path="/checkout" element={<CheckOut />} />
+    </Route>
+  )
+);
 
 function App() {
   const [currentUser, setCurrentUser] = useState("");
@@ -75,7 +69,7 @@ function App() {
     <>
       <div className="App">
         <userContext.Provider value={{ currentUser, setCurrentUser }}>
-          <RouterProvider router={router(currentUser)} />
+          <RouterProvider router={router} />
         </userContext.Provider>
       </div>
     </>

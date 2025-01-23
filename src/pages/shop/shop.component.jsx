@@ -1,13 +1,15 @@
-import SHOP_DATA from "./shopdata";
-import CollectionPreview from "../../components/collection-preview/preview-collection.component";
+import CollectionOverview from "../../components/collections-overview/collection-overview.component.jsx";
+
 const ShopPage = () => {
-  const collections = SHOP_DATA;
+  // const collections = useSelector(selectShopCollections);
   return (
     <>
       <div className="shop-page">
-        {collections.map(({ id, ...otherCollectionProps }) => (
+        {/* {collections.map(({ id, ...otherCollectionProps }) => (
           <CollectionPreview key={id} {...otherCollectionProps} />
-        ))}
+        ))} */}
+
+        <CollectionOverview />
       </div>
     </>
   );
